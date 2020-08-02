@@ -29,9 +29,9 @@ namespace DataLayer.Repo
         public List<Answer> GetAllCorrectAnswerForQuiz(int id)
         {
             var answers = db.Quizzes.Include(o => o.Questions).ThenInclude(p => p.Answers)
-                            .FirstOrDefault(x => x.Id == id).Questions.SelectMany(x => x.Answers)
+                            .FirstOrDefault(x => x.Id == id)?.Questions.SelectMany(x => x.Answers)
                             .Where(x => x.IsCorrect);
-            return answers.ToList();
+            return answers?.ToList();
 
         }
         public List<Answer> GetAll()
