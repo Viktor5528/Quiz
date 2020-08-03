@@ -6,36 +6,33 @@ namespace Quiz.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class QuizController : ControllerBase
     {
-        IUserService _user;
-
-        public UserController(IUserService user)
+        IQuizService _quiz;
+        public QuizController(IQuizService quiz)
         {
-            _user = user;
-
+            _quiz = quiz;
         }
         [HttpPost]
-        public int Create(CreateUserRequestModel model)
+        public int Create(CreateQuizRequestModel model)
         {
-            return _user.Create(model);
+            return _quiz.Create(model);
 
         }
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(_user.GetAll());
+            return Ok(_quiz.GetAll());
         }
         [HttpPut]
-        public IActionResult Update(UpdateUserRequestModel model)
+        public IActionResult Update(UpdateQuizRequestModel model)
         {
-            return Ok(_user.Update(model));
+            return Ok(_quiz.Update(model));
         }
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            return Ok(_user.Delete(id));
+            return Ok(_quiz.Delete(id));
         }
-
     }
 }

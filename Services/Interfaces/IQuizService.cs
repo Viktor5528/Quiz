@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Services.Requests;
+using Services.ResponsesModels;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Services.Interfaces
 {
-    interface IQuizService
+    public interface IQuizService
     {
+        int Create(CreateQuizRequestModel model);
+        int Delete(int id);
+        int Update(UpdateQuizRequestModel model);
+
+        List<ShortInfoQuizResponse> GetAll();
     }
 }

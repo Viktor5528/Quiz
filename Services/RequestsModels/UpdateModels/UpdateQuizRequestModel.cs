@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Services.Requests
 {
-    class UpdateQuizRequestModel
+    public class UpdateQuizRequestModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Services.Interfaces
 {
-    interface IQuestionService
+    public interface IQuestionService
     {
         int Create(CreateQuestionRequestModel model);
         int Update(UpdateQuestionRequestModel model);

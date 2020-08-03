@@ -1,10 +1,11 @@
-﻿using System;
+﻿using DataLayer.Entity;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Services.Requests
 {
-    class CreateQuizRequestModel
+    public class CreateQuizRequestModel
     {
+        public string Name { get; set; }
+        public List<Question> Questions { get; set; }
     }
 }

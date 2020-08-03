@@ -1,6 +1,6 @@
 ﻿namespace Services.Requests
 {
-    class CreateAnswerRequestModel
+    public class CreateAnswerRequestModel
     {
         public string Text { get; set; }
         public bool IsCorrect { get; set; }
