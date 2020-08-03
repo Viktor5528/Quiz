@@ -1,6 +1,5 @@
 ﻿using DataLayer.Entity;
 using DataLayer.Repo.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -23,20 +22,21 @@ namespace DataLayer.Repo
         {
             return db.Answers.Find(id);
         }
-        public int Delete(Answer answer)
+        public int Delete(int id)
         {
+            var answer = GetById(id);
             db.Answers.Remove(answer);
             db.SaveChanges();
             return answer.Id;
         }
-        public List<Answer> GetAllCorrectAnswerForQuiz(int id)
-        {
-            var answers = db.Quizzes.Include(o => o.Questions).ThenInclude(p => p.Answers)
-                            .FirstOrDefault(x => x.Id == id)?.Questions.SelectMany(x => x.Answers)
-                            .Where(x => x.IsCorrect);
-            return answers?.ToList();
+        //public List<Answer> GetAllCorrectAnswerForQuiz(int id)
+        //{
+        //    var answers = db.Quizzes.Include(o => o.Questions).ThenInclude(p => p.Answers)
+        //                    .FirstOrDefault(x => x.Id == id)?.Questions.SelectMany(x => x.Answers)
+        //                    .Where(x => x.IsCorrect);
+        //    return answers?.ToList();
 
-        }
+        //}
         public List<Answer> GetAll()
         {
             return db.Answers.ToList();

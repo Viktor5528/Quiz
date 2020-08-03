@@ -20,13 +20,14 @@ namespace DataLayer.Repo
             return quiz.Id;
         }
 
-        public int Delete(Quiz quiz)
+        public int Delete(int id)
         {
+            var quiz = GetById(id);
             db.Quizzes.Remove(quiz);
             db.SaveChanges();
             return quiz.Id;
         }
-        public Quiz GetByID(int id)
+        public Quiz GetById(int id)
         {
             return db.Quizzes.Find(id);
         }
@@ -34,10 +35,7 @@ namespace DataLayer.Repo
         {
             return db.Quizzes.ToList();
         }
-        public List<Question> GettAllQuestions(Quiz quiz)
-        {
-            return quiz.Questions;
-        }
+
         public int Update(Quiz quiz)
         {
             db.Quizzes.Update(quiz);
@@ -45,9 +43,5 @@ namespace DataLayer.Repo
             return quiz.Id;
         }
 
-        public Quiz GetById(int id)
-        {
-            return db.Quizzes.Find(id);
-        }
     }
 }

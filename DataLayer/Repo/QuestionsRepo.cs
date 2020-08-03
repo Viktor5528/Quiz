@@ -19,8 +19,9 @@ namespace DataLayer.Repo
             return question.Id;
         }
 
-        public int Delete(Question question)
+        public int Delete(int id)
         {
+            var question = GetById(id);
             db.Questions.Remove(question);
             db.SaveChanges();
             return question.Id;

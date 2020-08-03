@@ -32,5 +32,10 @@ namespace Services
         {
             return _mapper.Map<List<ShortInfoQuestionResponse>>(_repo.GetAll());
         }
+
+        public int Delete(int id)
+        {
+            return _repo.Delete(id);
+        }
     }
 }

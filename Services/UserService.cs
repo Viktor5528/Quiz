@@ -32,10 +32,7 @@ namespace Services
             var user = _repo.GetById(model.Id);
             user.Age = model.Age;
             user.Login = model.Name;
-
-            _repo.Update(user);
-
-            return user.Id;
+            return _repo.Update(user);
         }
 
         public List<ShortInfoUserResponse> GetAll()

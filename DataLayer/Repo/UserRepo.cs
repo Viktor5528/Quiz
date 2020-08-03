@@ -20,7 +20,7 @@ namespace DataLayer.Repo
         }
         public int Delete(int id)
         {
-            var user = db.Users.FirstOrDefault(x => x.Id == id);
+            var user = GetById(id);
             db.Users.Remove(user);
             db.SaveChanges();
             return user.Id;
