@@ -1,3 +1,4 @@
+using AutoMapper;
 using DataLayer;
 using DataLayer.Repo;
 using DataLayer.Repo.Interfaces;
@@ -8,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Services;
+using Services.Interfaces;
+using Services.Profiles;
 using System.Collections.Generic;
 
 namespace Quiz
@@ -27,6 +31,13 @@ namespace Quiz
             services.AddControllers();
             services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<IAnswerRepo, AnswerRepo>();
+            services.AddTransient<IQuizRepo, QuizRepo>();
+            services.AddTransient<IQuestionRepo, QuestionRepo>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAnswerService, AnswerService>();
+            services.AddTransient<IQuizService, QuizService>();
+            services.AddTransient<IQuestionService, QuestionService>();
+            services.AddAutoMapper(typeof(UserProfile).Assembly);
             services.AddSwaggerGen(c =>
             {
 
@@ -57,7 +68,7 @@ namespace Quiz
                     }
                 });
             });
-            services.AddDbContext<Context>(options => options.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=Quiz;Trusted_Connection=True;"));
+            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration["Connection"]));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

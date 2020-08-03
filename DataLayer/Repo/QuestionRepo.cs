@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace DataLayer.Repo
 {
-    class QuestionsRepo : IQuestionRepo
+    public class QuestionRepo : IQuestionRepo
     {
         Context db;
-        public QuestionsRepo(Context context)
+        public QuestionRepo(Context context)
         {
             db = context;
         }

@@ -1,13 +1,14 @@
 ﻿using AutoMapper;
 using DataLayer.Entity;
 using DataLayer.Repo.Interfaces;
+using Services.Interfaces;
 using Services.Requests;
 using Services.ResponsesModels;
 using System.Collections.Generic;
 
 namespace Services
 {
-    class QuizService
+    public class QuizService:IQuizService
     {
         IQuizRepo _repo;
         IMapper _mapper;

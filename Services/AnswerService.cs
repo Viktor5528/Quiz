@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataLayer.Entity;
 using DataLayer.Repo.Interfaces;
+using Services.Interfaces;
 using Services.Requests;
 using Services.Responses;
 using System;
@@ -9,7 +10,7 @@ using System.Text;
 
 namespace Services
 {
-    class AnswerService
+    public class AnswerService:IAnswerService
     {
         IMapper _mapper;
         IAnswerRepo _repo;

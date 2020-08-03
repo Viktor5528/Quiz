@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace DataLayer.Repo
 {
-    class QuizRepo : IQuizRepo
+    public class QuizRepo : IQuizRepo
     {
         Context db;
         public QuizRepo(Context context)

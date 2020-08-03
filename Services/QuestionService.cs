@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace Services
 {
-    class QuestionService : IQuestionService
+    public class QuestionService : IQuestionService
     {
         IQuestionRepo _repo;
         IMapper _mapper;
