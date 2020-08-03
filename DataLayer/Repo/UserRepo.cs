@@ -18,6 +18,7 @@ namespace DataLayer.Repo
             db.SaveChanges();
             return user.Id;
         }
+
         public int Delete(int id)
         {
             var user = GetById(id);
@@ -27,7 +28,6 @@ namespace DataLayer.Repo
         }
         public int Update(User user)
         {
-
             db.Users.Update(user);
             db.SaveChanges();
             return user.Id;

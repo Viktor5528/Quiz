@@ -1,11 +1,12 @@
 ﻿using DataLayer.Entity;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Services.Requests
+namespace Services.ResponsesModels
 {
-    class UpdateQuizRequestModel
+    class ShortInfoQuizResponse
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public List<Question> Questions { get; set; }
     }
