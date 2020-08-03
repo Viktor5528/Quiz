@@ -19,7 +19,10 @@ namespace DataLayer.Repo
             db.SaveChanges();
             return answer.Id;
         }
-
+        public Answer GetById(int id)
+        {
+            return db.Answers.Find(id);
+        }
         public int Delete(Answer answer)
         {
             db.Answers.Remove(answer);

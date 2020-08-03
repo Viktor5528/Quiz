@@ -26,7 +26,10 @@ namespace DataLayer.Repo
             db.SaveChanges();
             return quiz.Id;
         }
-
+        public Quiz GetByID(int id)
+        {
+            return db.Quizzes.Find(id);
+        }
         public List<Quiz> GetAll()
         {
             return db.Quizzes.ToList();
@@ -40,6 +43,11 @@ namespace DataLayer.Repo
             db.Quizzes.Update(quiz);
             db.SaveChanges();
             return quiz.Id;
+        }
+
+        public Quiz GetById(int id)
+        {
+            return db.Quizzes.Find(id);
         }
     }
 }

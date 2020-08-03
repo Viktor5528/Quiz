@@ -7,7 +7,8 @@ namespace DataLayer.Repo.Interfaces
     {
         int Create(User user);
         int Update(User user);
-        int Delete(User user);
+        int Delete(int id);
         List<User> GetAll();
+        User GetById(int id);
     }
 }

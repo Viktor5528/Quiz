@@ -9,5 +9,6 @@ namespace DataLayer.Repo.Interfaces
         int Update(Quiz quiz);
         int Delete(Quiz quiz);
         List<Quiz> GetAll();
+        Quiz GetById(int id);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using DataLayer.Entity;
-using DataLayer.Enums;
 using DataLayer.Repo.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,19 +18,25 @@ namespace DataLayer.Repo
             db.SaveChanges();
             return user.Id;
         }
-        public int Delete(User user)
+        public int Delete(int id)
         {
+            var user = db.Users.FirstOrDefault(x => x.Id == id);
             db.Users.Remove(user);
             db.SaveChanges();
             return user.Id;
         }
         public int Update(User user)
         {
+
             db.Users.Update(user);
             db.SaveChanges();
             return user.Id;
         }
-        
+        public User GetById(int id)
+        {
+            return db.Users.Find(id);
+        }
+
         public List<User> GetAll()
         {
             return db.Users.ToList();

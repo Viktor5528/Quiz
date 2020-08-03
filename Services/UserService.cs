@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DataLayer.Entity;
-using DataLayer.Enums;
 using DataLayer.Repo.Interfaces;
 using Services.Interfaces;
 using Services.Requests;
@@ -23,21 +22,22 @@ namespace Services
             return _repo.Create(_mapper.Map<User>(model));
 
         }
-        public int Delete(User user)
+        public int Delete(int id)
         {
-            _repo.Delete(user);
-            return user.Id;
+            return _repo.Delete(id);
+
         }
-        public int Update(User user)
+        public int Update(UpdateUserRequestModel model)
         {
+            var user = _repo.GetById(model.Id);
+            user.Age = model.Age;
+            user.Login = model.Name;
+
             _repo.Update(user);
 
             return user.Id;
         }
-        public Role GetRole(User user)
-        {
-            return user.Role;
-        }
+
         public List<ShortInfoUserResponse> GetAll()
         {
             return _mapper.Map<List<ShortInfoUserResponse>>(_repo.GetAll());

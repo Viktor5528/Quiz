@@ -9,5 +9,6 @@ namespace DataLayer.Repo.Interfaces
         int Update(Answer answer);
         int Delete(Answer answer);
         List<Answer> GetAll();
+        Answer GetById(int id);
     }
 }

@@ -25,7 +25,10 @@ namespace DataLayer.Repo
             db.SaveChanges();
             return question.Id;
         }
-
+        public Question GetById(int id)
+        {
+            return db.Questions.Find(id);
+        }
         public List<Question> GetAll()
         {
             return db.Questions.ToList();
