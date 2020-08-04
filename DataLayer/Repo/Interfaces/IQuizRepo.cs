@@ -8,6 +8,7 @@ namespace DataLayer.Repo.Interfaces
         int Create(Quiz quiz);
         int Update(Quiz quiz);
         int Delete(int id);
+        bool CheckIfQuizExisting(string name);
         List<Quiz> GetAll();
         Quiz GetById(int id);
     }

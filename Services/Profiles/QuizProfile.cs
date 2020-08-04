@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using DataLayer.Entity;
 using Services.Requests;
+using Services.ResponsesModels;
 
 namespace Services.Profiles
 {
@@ -9,6 +10,8 @@ namespace Services.Profiles
         public QuizProfile()
         {
             CreateMap<CreateQuizRequestModel, Quiz>();
+            CreateMap<UpdateQuizRequestModel, Quiz>();
+            CreateMap<ShortInfoQuizResponse, Quiz>().ReverseMap();
         }
     }
 }

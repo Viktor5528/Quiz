@@ -4,6 +4,7 @@ using DataLayer.Repo.Interfaces;
 using Services.Interfaces;
 using Services.Requests;
 using Services.ResponsesModels;
+using System;
 using System.Collections.Generic;
 
 namespace Services
@@ -19,6 +20,10 @@ namespace Services
         }
         public int Create(CreateQuizRequestModel model)
         {
+            if (_repo.CheckIfQuizExisting(model.Name))
+            {
+                throw new Exception("Duplicated Quiz Name");
+            }
             return _repo.Create(_mapper.Map<Quiz>(model));
         }
         public int Delete(int id)

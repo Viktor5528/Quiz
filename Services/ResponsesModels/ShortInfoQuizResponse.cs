@@ -6,6 +6,6 @@ namespace Services.ResponsesModels
     public class ShortInfoQuizResponse
     {
         public string Name { get; set; }
-        public List<Question> Questions { get; set; }
+        public List<QuestionResponseModel> Questions { get; set; }
     }
 }

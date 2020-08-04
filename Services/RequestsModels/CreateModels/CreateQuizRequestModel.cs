@@ -6,6 +6,6 @@ namespace Services.Requests
     public class CreateQuizRequestModel
     {
         public string Name { get; set; }
-        public List<Question> Questions { get; set; }
+        public List<CreateQuestionRequestModel> Questions { get; set; }
     }
 }

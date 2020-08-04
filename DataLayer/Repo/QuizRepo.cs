@@ -1,5 +1,6 @@
 ﻿using DataLayer.Entity;
 using DataLayer.Repo.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,6 +14,10 @@ namespace DataLayer.Repo
             db = context;
         }
 
+        public bool CheckIfQuizExisting(string name)
+        {
+            return db.Quizzes.Any(x => x.Name == name);
+        }
         public int Create(Quiz quiz)
         {
             db.Quizzes.Add(quiz);
@@ -33,7 +38,7 @@ namespace DataLayer.Repo
         }
         public List<Quiz> GetAll()
         {
-            return db.Quizzes.ToList();
+            return db.Quizzes.Include(x=>x.Questions).ThenInclude(x=>x.Answers).ToList();
         }
 
         public int Update(Quiz quiz)
