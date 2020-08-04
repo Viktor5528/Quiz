@@ -34,13 +34,21 @@ namespace DataLayer.Repo
         }
         public Quiz GetById(int id)
         {
-            return db.Quizzes.Find(id);
+            return db.Quizzes.Include(x => x.Questions).FirstOrDefault(x=>x.Id==id);
         }
         public List<Quiz> GetAll()
         {
             return db.Quizzes.Include(x=>x.Questions).ThenInclude(x=>x.Answers).ToList();
         }
-
+        public List<Question> AddQuestionForQuiz(int questionId, int quizId)
+        {
+            var quiz = GetById(quizId);
+            var question = db.Questions.FirstOrDefault(x=>x.Id==questionId);
+            quiz.Questions.Add(question);
+            db.SaveChanges();
+            return quiz.Questions.ToList();
+            
+        }
         public int Update(Quiz quiz)
         {
             db.Quizzes.Update(quiz);

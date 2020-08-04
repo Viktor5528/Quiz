@@ -19,6 +19,11 @@ namespace Quiz.Controllers
             return _quiz.Create(model);
 
         }
+        [HttpPost("Add")]
+        public IActionResult AddQuestionForQuiz(int questionId, int quizId)
+        {
+            return Ok(_quiz.AddQuestionForQuiz(questionId, quizId));
+        }
         [HttpGet]
         public IActionResult GetAll()
         {

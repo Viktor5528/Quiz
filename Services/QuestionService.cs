@@ -1,10 +1,13 @@
 ﻿using AutoMapper;
 using DataLayer.Entity;
+using DataLayer.Enums;
+using DataLayer.Migrations;
 using DataLayer.Repo.Interfaces;
 using Services.Interfaces;
 using Services.Requests;
 using Services.Responses;
 using System.Collections.Generic;
+using Theme = DataLayer.Enums.Theme;
 
 namespace Services
 {
@@ -26,6 +29,7 @@ namespace Services
             var question = _repo.GetById(model.Id);
             question.Text = model.Text;
             question.Complexity = model.Complexity;
+            question.Theme = (Theme)model.Theme;
             return _repo.Update(question);
         }
         public List<ShortInfoQuestionResponse> GetAll()

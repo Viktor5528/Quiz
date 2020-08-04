@@ -14,6 +14,7 @@ namespace Services.Profiles
             CreateMap<UpdateQuestionRequestModel, Question>();
             CreateMap<ShortInfoQuestionResponse, Question>().ReverseMap();
             CreateMap<QuestionResponseModel, Question>().ReverseMap();
+            CreateMap<ShortInfoQuestionResponse, CreateQuestionRequestModel>().ReverseMap();
         }
     }
 }

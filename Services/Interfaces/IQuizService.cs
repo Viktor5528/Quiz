@@ -1,4 +1,5 @@
 ﻿using Services.Requests;
+using Services.Responses;
 using Services.ResponsesModels;
 using System.Collections.Generic;
 
@@ -11,5 +12,6 @@ namespace Services.Interfaces
         int Update(UpdateQuizRequestModel model);
 
         List<ShortInfoQuizResponse> GetAll();
+        List<ShortInfoQuestionResponse> AddQuestionForQuiz(int questionId, int quizId);
     }
 }

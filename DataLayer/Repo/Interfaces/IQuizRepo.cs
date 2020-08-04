@@ -10,6 +10,7 @@ namespace DataLayer.Repo.Interfaces
         int Delete(int id);
         bool CheckIfQuizExisting(string name);
         List<Quiz> GetAll();
+        List<Question> AddQuestionForQuiz(int questionId, int quizId );
         Quiz GetById(int id);
     }
 }

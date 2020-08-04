@@ -36,6 +36,10 @@ namespace Services
         }
         public int Delete(int id)
         {
+            if (_repo.GetById(id) == null)
+            {
+                throw new Exception("User with this ID undefined");
+            }
             return _repo.Delete(id);
 
         }

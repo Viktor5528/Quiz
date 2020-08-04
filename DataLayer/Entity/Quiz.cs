@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using DataLayer.Enums;
+using System.Collections.Generic;
 
 namespace DataLayer.Entity
 {
@@ -6,6 +7,7 @@ namespace DataLayer.Entity
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public Theme Theme { get; set; }
         public List<Question> Questions { get; set; }
         public List<UserQuiz> UserQuizzes { get; set; }
     }

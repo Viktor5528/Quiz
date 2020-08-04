@@ -6,4 +6,10 @@
         Student,
         Teacher
     }
+    public enum Theme
+    {
+        B=1,
+        It, 
+        Math
+    }
 }
