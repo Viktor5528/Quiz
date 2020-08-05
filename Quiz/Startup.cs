@@ -1,9 +1,11 @@
 using AutoMapper;
 using DataLayer;
+using DataLayer.Entity;
 using DataLayer.Repo;
 using DataLayer.Repo.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -68,7 +70,10 @@ namespace Quiz
                     }
                 });
             });
-            services.AddDbContext<Context>(options => options.UseSqlServer(Configuration["Connection"]));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration["Connection"]));
+            services.AddIdentity<User, IdentityRole<int>>()
+                .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddTransient<IUserStore<User>, UserRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -82,7 +87,7 @@ namespace Quiz
             app.UseHttpsRedirection();
 
             app.UseRouting();
-
+            app.UseAuthentication();    // подключение аутентификации
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

@@ -7,8 +7,8 @@ namespace DataLayer.Repo
 {
     public class AnswerRepo : IAnswerRepo
     {
-        Context db;
-        public AnswerRepo(Context context)
+        ApplicationContext db;
+        public AnswerRepo(ApplicationContext context)
         {
             db = context;
         }

@@ -1,11 +1,12 @@
 ﻿using DataLayer.Enums;
+using Microsoft.AspNetCore.Identity;
 using System.Collections.Generic;
 
 namespace DataLayer.Entity
 {
-    public class User
+    public class User:IdentityUser<int>
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public int Age { get; set; }

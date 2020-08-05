@@ -8,8 +8,8 @@ namespace DataLayer.Repo
 {
     public class QuizRepo : IQuizRepo
     {
-        Context db;
-        public QuizRepo(Context context)
+        ApplicationContext db;
+        public QuizRepo(ApplicationContext context)
         {
             db = context;
         }
