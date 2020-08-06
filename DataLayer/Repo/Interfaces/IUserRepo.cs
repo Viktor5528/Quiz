@@ -10,5 +10,6 @@ namespace DataLayer.Repo.Interfaces
         int Delete(int id);
         List<User> GetAll();
         User GetById(int id);
+        void Save();
     }
 }

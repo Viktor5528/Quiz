@@ -16,6 +16,10 @@ namespace DataLayer.Repo
         {
             db = context;
         }
+        public void Save()
+        {
+            db.SaveChanges();
+        }
         public int Create(User user)
         {
             db.Users.Add(user);
@@ -98,7 +102,7 @@ namespace DataLayer.Repo
 
         public async Task<User> FindByNameAsync(string normalizedUserName, CancellationToken cancellationToken)
         {
-            return await db.Users.Include(x => x.Role).FirstOrDefaultAsync(x => x.NormalizedUserName == normalizedUserName);
+            return await db.Users.FirstOrDefaultAsync(x => x.NormalizedUserName == normalizedUserName);
         }
 
         public void Dispose()

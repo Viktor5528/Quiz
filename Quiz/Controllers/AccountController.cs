@@ -6,6 +6,7 @@ using DataLayer.Entity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Services.Interfaces;
 using Services.ViewModels;
 
 namespace Quiz.Controllers
@@ -16,34 +17,21 @@ namespace Quiz.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        IUserService _service;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUserService service)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _service = service;
         }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                User user = new User { Login = model.Login, Age = model.Age };
-                // добавляем пользователя
-                var result = await _userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    // установка куки
-                    await _signInManager.SignInAsync(user, false);
-                    
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                    return Ok(ModelState);
-                }
+               await _service.CreateAsync(model);
+               
             }
             return Ok(model);
         }

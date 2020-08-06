@@ -15,12 +15,7 @@ namespace Quiz.Controllers
             _user = user;
 
         }
-        [HttpPost]
-        public int Create(CreateUserRequestModel model)
-        {
-            return _user.Create(model);
-
-        }
+       
         [HttpGet]
         public IActionResult GetAll()
         {
