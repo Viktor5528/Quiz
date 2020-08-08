@@ -11,11 +11,12 @@ using System.Collections.Generic;
 
 namespace Services
 {
-    public class QuizService:IQuizService
+    public class QuizService : IQuizService
     {
         IQuizRepo _quizRepo;
         IQuestionRepo _questionRepo;
         IMapper _mapper;
+
         public QuizService(IMapper mapper, IQuizRepo repo, IQuestionRepo questionRepo)
         {
             _mapper = mapper;
@@ -39,19 +40,19 @@ namespace Services
         {
             var question = _questionRepo.GetById(questionId);
             var quiz = _quizRepo.GetById(quizId);
-            
+
             if (question.Theme == quiz.Theme)
             {
                 return _mapper
               .Map<List<ShortInfoQuestionResponse>>(_quizRepo.AddQuestionForQuiz(questionId, quizId));
             }
             throw new Exception("Quiz and Question have different themes");
-            
-          
-        }
-        
 
-        
+
+        }
+
+
+
         public int Delete(int id)
         {
             return _quizRepo.Delete(id);

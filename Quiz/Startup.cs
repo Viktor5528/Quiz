@@ -3,6 +3,8 @@ using DataLayer;
 using DataLayer.Entity;
 using DataLayer.Repo;
 using DataLayer.Repo.Interfaces;
+using LegalActionPlatform.Account.Services.Implementation.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -10,11 +12,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Services;
 using Services.Interfaces;
 using Services.Profiles;
+using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Quiz
 {
@@ -39,6 +44,29 @@ namespace Quiz
             services.AddTransient<IAnswerService, AnswerService>();
             services.AddTransient<IQuizService, QuizService>();
             services.AddTransient<IQuestionService, QuestionService>();
+            services.AddTransient<ITokenService, JWTTokenService>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.RequireHttpsMetadata = false;
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidIssuer = "Issuer",
+
+                        ValidateAudience = true,
+                        ValidAudience = "Audience",
+
+                        ValidateLifetime = true,
+
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("qwertyqwertyqwertyqwertyqwerty")),
+                        ValidateIssuerSigningKey = true
+                    };
+                    options.Events = new JwtBearerEvents
+                    {
+                       
+                    };
+                });
             services.AddAutoMapper(typeof(UserProfile).Assembly);
             services.AddSwaggerGen(c =>
             {

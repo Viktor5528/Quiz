@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
 
@@ -25,6 +26,7 @@ namespace Quiz.Controllers
             return Ok(_quiz.AddQuestionForQuiz(questionId, quizId));
         }
         [HttpGet]
+        [Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetAll()
         {
             return Ok(_quiz.GetAll());

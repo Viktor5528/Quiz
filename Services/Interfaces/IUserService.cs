@@ -1,5 +1,7 @@
 ﻿using Services.Requests;
+using Services.RequestsModels;
 using Services.Responses;
+using Services.ResponsesModels;
 using Services.ViewModels;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -13,5 +15,6 @@ namespace Services.Interfaces
         int Update(UpdateUserRequestModel model);
 
         List<ShortInfoUserResponse> GetAll();
+        Task<UserLoginResponse> LoginAsync(UserLoginRequest loginRequest);
     }
 }

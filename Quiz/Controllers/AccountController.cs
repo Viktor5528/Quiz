@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using DataLayer.Entity;
-using Microsoft.AspNetCore.Http;
+﻿using DataLayer.Entity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using Services.RequestsModels;
+using Services.ResponsesModels;
 using Services.ViewModels;
+using System;
+using System.Threading.Tasks;
 
 namespace Quiz.Controllers
 {
@@ -18,6 +17,7 @@ namespace Quiz.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         IUserService _service;
+        
 
         public AccountController(UserManager<User> userManager, SignInManager<User> signInManager, IUserService service)
         {
@@ -30,10 +30,15 @@ namespace Quiz.Controllers
         {
             if (ModelState.IsValid)
             {
-               await _service.CreateAsync(model);
-               
+                await _service.CreateAsync(model);
+
             }
             return Ok(model);
+        }
+        [HttpPost("Login")]
+        public async Task<UserLoginResponse> LoginAsync(UserLoginRequest loginRequest)
+        {
+           return await _service.LoginAsync(loginRequest);
         }
     }
 }

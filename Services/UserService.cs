@@ -6,7 +6,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
+using Services.RequestsModels;
 using Services.Responses;
+using Services.ResponsesModels;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,14 +19,16 @@ namespace Services
     public class UserService : IUserService
     {
         IUserRepo _repo;
+        ITokenService _token;
         IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        public UserService(IUserRepo repo, IMapper mapper, UserManager<User> userManager)
+        
+        public UserService(IUserRepo repo, IMapper mapper, UserManager<User> userManager, ITokenService token)
         {
             _repo = repo;
             _mapper = mapper;
             _userManager = userManager;
+            _token = token;
         }
         public async Task<int> CreateAsync(RegisterViewModel model)
         {
@@ -37,12 +41,25 @@ namespace Services
                 throw new Exception("Message"); 
             }
             
-                User user = new User { Login = model.Login, Age = model.Age };
-           
-                var result = await _userManager.CreateAsync(user, model.Password);
+            User user = new User { Login = model.Login, Age = model.Age };
+            await _userManager.CreateAsync(user, model.Password);
             _repo.Save();
             return user.Id;
 
+        }
+        public async Task<UserLoginResponse> LoginAsync(UserLoginRequest loginRequest)
+        {
+            var user = await _userManager.FindByNameAsync(loginRequest.Email);
+
+            if (user == null || !await _userManager.CheckPasswordAsync(user, loginRequest.Password))
+            {
+                throw new Exception("Username or password is incorrect");
+            }
+
+            return new UserLoginResponse
+            {
+                Token = _token.GenerateToken(user)
+            };
         }
         public int Delete(int id)
         {
