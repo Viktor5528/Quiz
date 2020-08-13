@@ -9,7 +9,7 @@ namespace Services.Profiles
     {
         public UserProfile()
         {
-            CreateMap<CreateUserRequestModel, User>();
+           
 
             CreateMap<User, ShortInfoUserResponse>()
                 .ForMember(x => x.Name, opt => opt.MapFrom(x => x.Login));

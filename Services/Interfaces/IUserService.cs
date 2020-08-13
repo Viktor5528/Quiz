@@ -13,6 +13,7 @@ namespace Services.Interfaces
         Task<int> CreateAsync(RegisterViewModel model);
         int Delete(int id);
         int Update(UpdateUserRequestModel model);
+        Task Import(byte[] file);
 
         List<ShortInfoUserResponse> GetAll();
         Task<UserLoginResponse> LoginAsync(UserLoginRequest loginRequest);

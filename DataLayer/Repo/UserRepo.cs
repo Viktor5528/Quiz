@@ -20,12 +20,7 @@ namespace DataLayer.Repo
         {
             db.SaveChanges();
         }
-        public int Create(User user)
-        {
-            db.Users.Add(user);
-            db.SaveChanges();
-            return user.Id;
-        }
+        
 
         public int Delete(int id)
         {

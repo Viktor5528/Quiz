@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
+using CsvHelper;
+using System.IO;
 
 namespace Quiz.Controllers
 {
@@ -13,7 +16,15 @@ namespace Quiz.Controllers
         public UserController(IUserService user)
         {
             _user = user;
-
+        }
+        [HttpPost]
+        public IActionResult Import(IFormFile file)
+        {
+            var stream = new MemoryStream();
+            file.CopyTo(stream);
+            var bytes=stream.ToArray();
+            _user.Import(bytes);
+            return Ok();
         }
        
         [HttpGet]

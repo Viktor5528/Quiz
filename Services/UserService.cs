@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CsvHelper;
 using DataLayer.Entity;
 using DataLayer.Enums;
 using DataLayer.Repo.Interfaces;
@@ -12,6 +13,8 @@ using Services.ResponsesModels;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Services
@@ -29,6 +32,20 @@ namespace Services
             _mapper = mapper;
             _userManager = userManager;
             _token = token;
+        }
+        public async Task Import(byte[] file)
+        {
+            using (Stream stream = new MemoryStream(file))
+            using (var reader = new StreamReader(stream))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Configuration.RegisterClassMap<CSVUser>();
+                var records = csv.GetRecords<RegisterViewModel>();
+                foreach( var a in records)
+                {
+                   await CreateAsync(a);
+                }
+            }
         }
         public async Task<int> CreateAsync(RegisterViewModel model)
         {

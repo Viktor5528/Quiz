@@ -5,7 +5,7 @@ namespace DataLayer.Repo.Interfaces
 {
     public interface IUserRepo
     {
-        int Create(User user);
+       
         int Update(User user);
         int Delete(int id);
         List<User> GetAll();
