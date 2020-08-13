@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using CsvHelper;
+using ClosedXML.Excel;
 using DataLayer.Entity;
-using DataLayer.Enums;
 using DataLayer.Repo.Interfaces;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
 using Services.RequestsModels;
@@ -13,8 +11,8 @@ using Services.ResponsesModels;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Services
@@ -25,7 +23,7 @@ namespace Services
         ITokenService _token;
         IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        
+
         public UserService(IUserRepo repo, IMapper mapper, UserManager<User> userManager, ITokenService token)
         {
             _repo = repo;
@@ -33,31 +31,60 @@ namespace Services
             _userManager = userManager;
             _token = token;
         }
-        public async Task Import(byte[] file)
+        public async Task Import(byte[] bytes)
         {
-            using (Stream stream = new MemoryStream(file))
-            using (var reader = new StreamReader(stream))
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            var stream = new MemoryStream(bytes);
+            var workbook = new XLWorkbook(stream);
+            var worksheet = workbook.Worksheets.First();
+            try
             {
-                csv.Configuration.RegisterClassMap<CSVUser>();
-                var records = csv.GetRecords<RegisterViewModel>();
-                foreach( var a in records)
+                for (int i = 1; true; i++)
                 {
-                   await CreateAsync(a);
+                    var model = new RegisterViewModel
+                    {
+                        Login = worksheet.Cell(i + 1, 1).Value.ToString(),
+                        Password = worksheet.Cell(i + 1, 1).Value.ToString(),
+                        Age = (int)worksheet.Cell(i + 1, 1).Value
+                    };
+                    await CreateAsync(model);
                 }
             }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
+        public byte[] Export()
+        {
+            var users = _repo.GetAll();
+            var workbook = new XLWorkbook();
+            IXLWorksheet worksheet = workbook.Worksheets.Add("Users");
+            worksheet.Cell(1, 1).Value = "Login";
+            worksheet.Cell(1, 2).Value = "Age";
+            for (int i = 1; i <= users.Count; i++)
+            {
+                worksheet.Cell(i + 1, 1).Value = users[i - 1].Login;
+                worksheet.Cell(i + 1, 2).Value = users[i - 1].Age;
+            }
+            using (var stream = new MemoryStream())
+            {
+                workbook.SaveAs(stream);
+                return stream.ToArray();
+            }
+
         }
         public async Task<int> CreateAsync(RegisterViewModel model)
         {
-           
+
             if (model.Password.Length > 20)
                 throw new Exception("Password length >20");
 
-            if (string.IsNullOrWhiteSpace(model.Login)) 
+            if (string.IsNullOrWhiteSpace(model.Login))
             {
-                throw new Exception("Message"); 
+                throw new Exception("Message");
             }
-            
+
             User user = new User { Login = model.Login, Age = model.Age };
             await _userManager.CreateAsync(user, model.Password);
             _repo.Save();

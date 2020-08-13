@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
-using CsvHelper;
 using System.IO;
 
 namespace Quiz.Controllers
@@ -17,16 +16,22 @@ namespace Quiz.Controllers
         {
             _user = user;
         }
-        [HttpPost]
+        [HttpPost("Import")]
         public IActionResult Import(IFormFile file)
         {
             var stream = new MemoryStream();
             file.CopyTo(stream);
-            var bytes=stream.ToArray();
-            _user.Import(bytes);
+            _user.Import(stream.ToArray());
             return Ok();
         }
-       
+        [HttpPost("Export")]
+        public IActionResult Export()
+        {
+            string contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            string fileName = "results.xlsx";
+            return File(_user.Export(), contentType, fileName);
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {

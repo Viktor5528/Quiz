@@ -6,7 +6,7 @@ namespace DataLayer.Entity
 {
     public class User : IdentityUser<int>
     {
-        //public int Id { get; set; }
+
         public string Login { get; set; }
         public int Age { get; set; }
         public Role Role { get; set; }
