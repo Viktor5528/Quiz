@@ -43,8 +43,8 @@ namespace Services
                     var model = new RegisterViewModel
                     {
                         Login = worksheet.Cell(i + 1, 1).Value.ToString(),
-                        Password = worksheet.Cell(i + 1, 1).Value.ToString(),
-                        Age = (int)worksheet.Cell(i + 1, 1).Value
+                        Password = worksheet.Cell(i + 1, 2).Value.ToString(),
+                        Age = Convert.ToInt32(worksheet.Cell(i + 1, 3).Value)
                     };
                     await CreateAsync(model);
                 }
