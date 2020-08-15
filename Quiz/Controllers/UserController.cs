@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace Quiz.Controllers
 {
@@ -17,11 +18,11 @@ namespace Quiz.Controllers
             _user = user;
         }
         [HttpPost("Import")]
-        public IActionResult Import(IFormFile file)
+        public async Task<IActionResult> Import(IFormFile file)
         {
             var stream = new MemoryStream();
             file.CopyTo(stream);
-            _user.Import(stream.ToArray());
+            await _user.Import(stream.ToArray());
             return Ok();
         }
         [HttpPost("Export")]
