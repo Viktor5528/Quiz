@@ -71,9 +71,9 @@ namespace XUnitTests
             });
             _mockQuestion.Setup(x => x.GetById(1)).Returns(new Question()
             {
-                 Theme=DataLayer.Enums.Theme.B
+                Theme = DataLayer.Enums.Theme.B
             });
-            //eqweqwe
+            //eqweqwesaddasdas
             Assert.Throws<Exception>(() => _service.AddQuestionForQuiz(1, 1));
         }
         [Fact]
@@ -87,7 +87,7 @@ namespace XUnitTests
             {
                 Theme = DataLayer.Enums.Theme.B
             });
-            Assert.IsType<List<ShortInfoQuestionResponse>>(_service.AddQuestionForQuiz(1,1));
+            Assert.IsType<List<ShortInfoQuestionResponse>>(_service.AddQuestionForQuiz(1, 1));
         }
 
     }
