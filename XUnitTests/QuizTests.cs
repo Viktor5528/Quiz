@@ -1,3 +1,4 @@
+using AutoFixture.Xunit2;
 using AutoMapper;
 using DataLayer.Entity;
 using DataLayer.Repo.Interfaces;
@@ -40,18 +41,13 @@ namespace XUnitTests
             });
             Assert.Equal(1, result);
         }
-        [Fact]
-        public void CreateQuizInvalidValue()
+        [Theory, AutoData]
+        public void CreateQuizInvalidValue(CreateQuizRequestModel model)
         {
-
+            model.Name = "name";
             Assert.Throws<Exception>(() =>
             {
-                _service.Create(new CreateQuizRequestModel
-                {
-                    Questions = new List<CreateQuestionRequestModel>(),
-                    Name = "name",
-                    Theme = 2
-                });
+                _service.Create(model);
             });
         }
         [Theory]
