@@ -73,7 +73,7 @@ namespace XUnitTests
             {
                  Theme=DataLayer.Enums.Theme.B
             });
-
+            //eqweqwe
             Assert.Throws<Exception>(() => _service.AddQuestionForQuiz(1, 1));
         }
         [Fact]
