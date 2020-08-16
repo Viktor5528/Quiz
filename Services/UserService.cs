@@ -40,7 +40,7 @@ namespace Services
             {
                 for (int i = 1; true; i++)
                 {
-                    var model = new RegisterViewModel
+                    var model = new RegisterRequesteModel
                     {
                         Login = worksheet.Cell(i + 1, 1).Value.ToString(),
                         Password = worksheet.Cell(i + 1, 2).Value.ToString(),
@@ -74,7 +74,7 @@ namespace Services
             }
 
         }
-        public async Task<int> CreateAsync(RegisterViewModel model)
+        public async Task<int> CreateAsync(RegisterRequesteModel model)
         {
 
             if (model.Password.Length > 20)
@@ -91,7 +91,7 @@ namespace Services
             return user.Id;
 
         }
-        public async Task<UserLoginResponse> LoginAsync(UserLoginRequest loginRequest)
+        public async Task<UserLoginResponse> LoginAsync(LoginRequestModel loginRequest)
         {
             var user = await _userManager.FindByNameAsync(loginRequest.Email);
 

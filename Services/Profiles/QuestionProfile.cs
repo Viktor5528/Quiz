@@ -6,7 +6,7 @@ using Services.ResponsesModels;
 
 namespace Services.Profiles
 {
-    class QuestionProfile : Profile
+    public class QuestionProfile : Profile
     {
         public QuestionProfile()
         {

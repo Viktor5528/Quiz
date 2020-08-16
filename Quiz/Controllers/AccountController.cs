@@ -26,7 +26,7 @@ namespace Quiz.Controllers
             _service = service;
         }
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        public async Task<IActionResult> Register(RegisterRequesteModel model)
         {
             if (ModelState.IsValid)
             {
@@ -36,7 +36,7 @@ namespace Quiz.Controllers
             return Ok(model);
         }
         [HttpPost("Login")]
-        public async Task<UserLoginResponse> LoginAsync(UserLoginRequest loginRequest)
+        public async Task<UserLoginResponse> LoginAsync(LoginRequestModel loginRequest)
         {
            return await _service.LoginAsync(loginRequest);
         }

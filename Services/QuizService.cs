@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using DataLayer.Entity;
-using DataLayer.Enums;
 using DataLayer.Repo.Interfaces;
 using Services.Interfaces;
 using Services.Requests;
@@ -25,10 +24,7 @@ namespace Services
         }
         public int Create(CreateQuizRequestModel model)
         {
-            if (!Enum.IsDefined(typeof(Theme), model.Theme))
-            {
-                throw new Exception("Theme undefined");
-            }
+
             if (_quizRepo.CheckIfQuizExisting(model.Name))
             {
                 throw new Exception("Duplicated Quiz Name");
@@ -38,8 +34,8 @@ namespace Services
         }
         public List<ShortInfoQuestionResponse> AddQuestionForQuiz(int questionId, int quizId)
         {
-            var question = _questionRepo.GetById(questionId);
-            var quiz = _quizRepo.GetById(quizId);
+            var question = _questionRepo.GetById(questionId) ?? throw new Exception("Question not found");
+            var quiz = _quizRepo.GetById(quizId) ?? throw new Exception("Quiz not found");
 
             if (question.Theme == quiz.Theme)
             {

@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Services.ViewModels
 {
-    public class RegisterViewModel
+    public class RegisterRequesteModel
     {
         [Required] 
         public string Login { get; set; }

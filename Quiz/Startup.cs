@@ -3,6 +3,7 @@ using DataLayer;
 using DataLayer.Entity;
 using DataLayer.Repo;
 using DataLayer.Repo.Interfaces;
+using FluentValidation.AspNetCore;
 using LegalActionPlatform.Account.Services.Implementation.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -35,7 +36,16 @@ namespace Quiz
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            
+            services.AddControllers(opt =>
+            {
+                // ...
+            }).AddFluentValidation(fvc =>
+            {
+                fvc.RegisterValidatorsFromAssemblyContaining<Startup>();
+                fvc.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
+
+            });
             services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<IAnswerRepo, AnswerRepo>();
             services.AddTransient<IQuizRepo, QuizRepo>();
@@ -45,6 +55,7 @@ namespace Quiz
             services.AddTransient<IQuizService, QuizService>();
             services.AddTransient<IQuestionService, QuestionService>();
             services.AddTransient<ITokenService, JWTTokenService>();
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

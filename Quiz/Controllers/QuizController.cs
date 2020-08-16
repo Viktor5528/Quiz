@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
+using System.ComponentModel.DataAnnotations;
 
 namespace Quiz.Controllers
 {
@@ -21,7 +22,7 @@ namespace Quiz.Controllers
 
         }
         [HttpPost("Add")]
-        public IActionResult AddQuestionForQuiz(int questionId, int quizId)
+        public IActionResult AddQuestionForQuiz([Required]int questionId, int quizId)
         {
             return Ok(_quiz.AddQuestionForQuiz(questionId, quizId));
         }
