@@ -8,6 +8,7 @@ using Services.Requests;
 using Services.Responses;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 using QuizEntity = DataLayer.Entity.Quiz;
 
@@ -21,7 +22,7 @@ namespace XUnitTests
         QuizService _service;
         public QuizTests()
         {
-            _mockQuiz.Setup(x => x.Create(It.IsAny<QuizEntity>())).Returns(1);
+            _mockQuiz.Setup(x => x.Create(It.IsAny<QuizEntity>())).Returns(Task.FromResult(1));
             _mockQuiz.Setup(x => x.CheckIfQuizExisting("name")).Returns(true);
             _mockQuiz.Setup(x => x.AddQuestionForQuiz(1, 1)).Returns(new List<Question>());
             _mockQuiz.Setup(x => x.GetById(1)).Returns(new QuizEntity());
@@ -30,10 +31,10 @@ namespace XUnitTests
             _service = new QuizService(_mapper, _mockQuiz.Object, _mockQuestion.Object);
         }
         [Fact]
-        public void CreateQuizValidValueTest()
+        public async void CreateQuizValidValueTest()
         {
 
-            var result = _service.Create(new CreateQuizRequestModel
+            var result =await  _service.Create(new CreateQuizRequestModel
             {
                 Questions = new List<CreateQuestionRequestModel>(),
                 Name = "123123",
@@ -42,12 +43,12 @@ namespace XUnitTests
             Assert.Equal(1, result);
         }
         [Theory, AutoData]
-        public void CreateQuizInvalidValue(CreateQuizRequestModel model)
+        public async  void CreateQuizInvalidValue(CreateQuizRequestModel model)
         {
             model.Name = "name";
-            Assert.Throws<Exception>(() =>
+             await Assert.ThrowsAsync<Exception>(async() =>
             {
-                _service.Create(model);
+                await _service.Create(model);
             });
         }
         [Theory]

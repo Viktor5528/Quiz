@@ -36,7 +36,7 @@ namespace Quiz
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+
             services.AddControllers(opt =>
             {
                 // ...
@@ -75,7 +75,7 @@ namespace Quiz
                     };
                     options.Events = new JwtBearerEvents
                     {
-                       
+
                     };
                 });
             services.AddAutoMapper(typeof(UserProfile).Assembly);
@@ -109,7 +109,7 @@ namespace Quiz
                     }
                 });
             });
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration["Connection"]));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("connectionstring")));
             services.AddIdentity<User, IdentityRole<int>>()
                 .AddEntityFrameworkStores<ApplicationContext>();
             services.AddTransient<IUserStore<User>, UserRepo>();

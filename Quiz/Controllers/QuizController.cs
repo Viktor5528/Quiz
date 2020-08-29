@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
 using System.ComponentModel.DataAnnotations;
+using System.Threading.Tasks;
 
 namespace Quiz.Controllers
 {
@@ -16,9 +17,9 @@ namespace Quiz.Controllers
             _quiz = quiz;
         }
         [HttpPost]
-        public int Create(CreateQuizRequestModel model)
+        public async Task<int> Create(CreateQuizRequestModel model)
         {
-            return _quiz.Create(model);
+            return await _quiz.Create(model);
 
         }
         [HttpPost("Add")]
@@ -38,9 +39,9 @@ namespace Quiz.Controllers
             return Ok(_quiz.Update(model));
         }
         [HttpDelete]
-        public IActionResult Delete(int id)
+        public async Task<IActionResult> Delete(int id)
         {
-            return Ok(_quiz.Delete(id));
+            return  Ok(await _quiz.Delete(id));
         }
     }
 }

@@ -3,6 +3,7 @@ using DataLayer.Repo.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace DataLayer.Repo
 {
@@ -18,18 +19,18 @@ namespace DataLayer.Repo
         {
             return db.Quizzes.Any(x => x.Name == name);
         }
-        public int Create(Quiz quiz)
+        public async Task<int> Create(Quiz quiz)
         {
-            db.Quizzes.Add(quiz);
-            db.SaveChanges();
+            await db.Quizzes.AddAsync(quiz);
+            await db.SaveChangesAsync();
             return quiz.Id;
         }
 
-        public int Delete(int id)
+        public async Task<int> Delete(int id)
         {
             var quiz = GetById(id);
             db.Quizzes.Remove(quiz);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return quiz.Id;
         }
         public Quiz GetById(int id)

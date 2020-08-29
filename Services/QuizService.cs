@@ -7,6 +7,7 @@ using Services.Responses;
 using Services.ResponsesModels;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Services
 {
@@ -22,7 +23,7 @@ namespace Services
             _quizRepo = repo;
             _questionRepo = questionRepo;
         }
-        public int Create(CreateQuizRequestModel model)
+        public async Task<int> Create(CreateQuizRequestModel model)
         {
 
             if (_quizRepo.CheckIfQuizExisting(model.Name))
@@ -30,7 +31,7 @@ namespace Services
                 throw new Exception("Duplicated Quiz Name");
             }
 
-            return _quizRepo.Create(_mapper.Map<Quiz>(model));
+            return await _quizRepo.Create(_mapper.Map<Quiz>(model));
         }
         public List<ShortInfoQuestionResponse> AddQuestionForQuiz(int questionId, int quizId)
         {
@@ -49,7 +50,7 @@ namespace Services
 
 
 
-        public int Delete(int id)
+        public Task<int> Delete(int id)
         {
             return _quizRepo.Delete(id);
         }

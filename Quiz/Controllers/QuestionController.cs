@@ -17,7 +17,6 @@ namespace Quiz.Controllers
         public int Create(CreateQuestionRequestModel model)
         {
             return _question.Create(model);
-
         }
         [HttpGet]
         public IActionResult GetAll()

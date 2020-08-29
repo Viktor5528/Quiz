@@ -1,4 +1,6 @@
-﻿namespace DataLayer.Entity
+﻿using Microsoft.Extensions.Primitives;
+
+namespace DataLayer.Entity
 {
     public class Answer
     {
