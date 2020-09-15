@@ -13,7 +13,6 @@ namespace DataLayer
         public DbSet<Quiz> Quizzes { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> dbContext) : base(dbContext)
         {
-            
         }
         protected override void OnModelCreating(ModelBuilder mb)
         {

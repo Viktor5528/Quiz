@@ -109,7 +109,7 @@ namespace Quiz
                     }
                 });
             });
-            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Environment.GetEnvironmentVariable("connectionstring")));
+            services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("quizConnectionstring")));
             services.AddIdentity<User, IdentityRole<int>>()
                 .AddEntityFrameworkStores<ApplicationContext>();
             services.AddTransient<IUserStore<User>, UserRepo>();
