@@ -46,6 +46,7 @@ namespace Quiz
                 fvc.RunDefaultMvcValidationAfterFluentValidationExecutes = false;
 
             });
+            services.AddCors();
             services.AddTransient<IUserRepo, UserRepo>();
             services.AddTransient<IAnswerRepo, AnswerRepo>();
             services.AddTransient<IQuizRepo, QuizRepo>();
@@ -122,11 +123,11 @@ namespace Quiz
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseHttpsRedirection();
-
             app.UseRouting();
-            app.UseAuthentication();    // подключение аутентификации
+            
+            app.UseAuthentication();    
             app.UseAuthorization();
             app.UseSwagger();
             app.UseSwaggerUI(c =>

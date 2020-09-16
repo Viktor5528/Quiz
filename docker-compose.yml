@@ -6,6 +6,5 @@ services:
             dockerfile: Quiz/Dockerfile
         ports:
             - "8080:80"
-        environment:
-            connectionstring: "server=localhost\\SQLEXPRESS;database=Quiz;trusted_connection=true;"
-        network_mode: host
+        
+        
