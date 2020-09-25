@@ -99,7 +99,7 @@ namespace Services
             {
                 throw new Exception("Username or password is incorrect");
             }
-
+            
             return new UserLoginResponse
             {
                 Token = _token.GenerateToken(user)

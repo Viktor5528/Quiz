@@ -36,9 +36,17 @@ namespace Quiz.Controllers
             return Ok(model);
         }
         [HttpPost("Login")]
-        public async Task<UserLoginResponse> LoginAsync(LoginRequestModel loginRequest)
+        public async Task<IActionResult> LoginAsync(LoginRequestModel loginRequest)
         {
-           return await _service.LoginAsync(loginRequest);
+            try
+            {
+                return Ok(await _service.LoginAsync(loginRequest));
+            }
+
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
         }
     }
 }
