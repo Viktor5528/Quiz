@@ -1,4 +1,4 @@
-using AutoMapper;
+﻿using AutoMapper;
 using DataLayer;
 using DataLayer.Entity;
 using DataLayer.Repo;
@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -82,7 +83,11 @@ namespace Quiz
             services.AddAutoMapper(typeof(UserProfile).Assembly);
             services.AddSwaggerGen(c =>
             {
-
+                c.CustomOperationIds(d =>
+                {
+                    var x = (d.ActionDescriptor as ControllerActionDescriptor);
+                    return x.ActionName + x.ControllerName;
+                });
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fixtures API", Version = "v1" });
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -111,7 +116,13 @@ namespace Quiz
                 });
             });
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(Configuration.GetConnectionString("quizConnectionstring")));
-            services.AddIdentity<User, IdentityRole<int>>()
+            services.AddIdentity<User, IdentityRole<int>>(opt=> {
+                opt.Password.RequiredLength = 5;   // минимальная длина
+                opt.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
+                opt.Password.RequireLowercase = false; // требуются ли символы в нижнем регистре
+                opt.Password.RequireUppercase = false; // требуются ли символы в верхнем регистре
+                opt.Password.RequireDigit = false; // требуются ли цифры
+            })
                 .AddEntityFrameworkStores<ApplicationContext>();
             services.AddTransient<IUserStore<User>, UserRepo>();
         }
@@ -123,13 +134,14 @@ namespace Quiz
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            
             app.UseHttpsRedirection();
             app.UseRouting();
-            
+
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();    
             app.UseAuthorization();
-            app.UseSwagger();
+            app.UseSwagger(o => o.SerializeAsV2 = true);
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fixture API");
@@ -140,6 +152,7 @@ namespace Quiz
             {
                 endpoints.MapControllers();
             });
+            
         }
     }
 }

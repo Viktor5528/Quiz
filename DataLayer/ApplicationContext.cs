@@ -13,7 +13,7 @@ namespace DataLayer
         public DbSet<Quiz> Quizzes { get; set; }
         public ApplicationContext(DbContextOptions<ApplicationContext> dbContext) : base(dbContext)
         {
-            Database.EnsureCreated();
+            
         }
         protected override void OnModelCreating(ModelBuilder mb)
         {
