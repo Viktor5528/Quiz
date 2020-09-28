@@ -82,7 +82,7 @@ namespace Services
 
             if (string.IsNullOrWhiteSpace(model.Login))
             {
-                throw new Exception("Message");
+                throw new Exception("Login is incorrect");
             }
 
             User user = new User { Login = model.Login, Age = model.Age };

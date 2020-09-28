@@ -28,12 +28,17 @@ namespace Quiz.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterRequesteModel model)
         {
-            if (ModelState.IsValid)
-            {
-                await _service.CreateAsync(model);
 
+            try
+            { 
+                return Ok(await _service.CreateAsync(model));
             }
-            return Ok(model);
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+            
         }
         [HttpPost("Login")]
         public async Task<IActionResult> LoginAsync(LoginRequestModel loginRequest)
