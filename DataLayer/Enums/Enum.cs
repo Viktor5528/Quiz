@@ -8,7 +8,7 @@
     }
     public enum Theme
     {
-        B=1,
+        Bio=1,
         It, 
         Math
     }
