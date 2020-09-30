@@ -1,5 +1,6 @@
 ﻿using DataLayer.Entity;
 using DataLayer.Repo.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,6 +23,10 @@ namespace DataLayer.Repo
         public int Delete(int id)
         {
             var question = GetById(id);
+            if (question == null)
+            {
+                throw new Exception("Question not found");
+            }
             db.Questions.Remove(question);
             db.SaveChanges();
             return question.Id;

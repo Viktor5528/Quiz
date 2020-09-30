@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 using Services.Requests;
+using System;
 
 namespace Quiz.Controllers
 {
@@ -31,7 +32,15 @@ namespace Quiz.Controllers
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            return Ok(_question.Delete(id));
+            try
+            {
+                return Ok(_question.Delete(id));
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
     }
 }

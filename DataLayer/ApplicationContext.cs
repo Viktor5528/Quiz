@@ -23,6 +23,8 @@ namespace DataLayer
             mb.Entity<IdentityUserLogin<int>>().HasNoKey();
             mb.Entity<IdentityUserRole<int>>().HasNoKey();
             mb.Entity<IdentityUserToken<int>>().HasNoKey();
+            mb.Entity<Question>().HasMany(q => q.Answers).WithOne(a => a.Question).HasForeignKey("QuestionId").OnDelete(DeleteBehavior.Cascade);
+            
            
         }
 
