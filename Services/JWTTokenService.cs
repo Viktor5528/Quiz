@@ -28,7 +28,7 @@ namespace LegalActionPlatform.Account.Services.Implementation.Services
                 issuer: "Issuer",
                 audience: "Audience",
                 claims: claims,
-                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(20)),
+                expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(10000)),
                 signingCredentials: new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes("qwertyqwertyqwertyqwertyqwerty")), SecurityAlgorithms.HmacSha256)
             );
             return new JwtSecurityTokenHandler().WriteToken(jwt);

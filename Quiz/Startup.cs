@@ -75,6 +75,7 @@ namespace Quiz
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("qwertyqwertyqwertyqwertyqwerty")),
                         ValidateIssuerSigningKey = true
                     };
+                
                     options.Events = new JwtBearerEvents
                     {
 
