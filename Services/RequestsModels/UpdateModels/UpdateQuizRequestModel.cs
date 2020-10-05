@@ -7,7 +7,7 @@ namespace Services.Requests
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Question> Questions { get; set; }
+        public List<CreateQuestionRequestModel> Questions { get; set; }
         public int Theme { get; set; }
     }
 }

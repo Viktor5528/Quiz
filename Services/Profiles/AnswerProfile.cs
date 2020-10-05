@@ -12,8 +12,8 @@ namespace Services.Profiles
     {
         public AnswerProfile()
         {
-            CreateMap<CreateAnswerRequestModel, Answer>();
-            CreateMap<UpdateAnswerRequestModel, Answer>();
+            CreateMap<CreateAnswerRequestModel, Answer>().ReverseMap();
+            CreateMap<UpdateAnswerRequestModel, Answer>().ReverseMap();
             CreateMap<ShortInfoAnswerResponse, Answer>().ReverseMap();
         }
     }

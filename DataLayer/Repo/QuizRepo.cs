@@ -35,7 +35,7 @@ namespace DataLayer.Repo
         }
         public Quiz GetById(int id)
         {
-            return db.Quizzes.Include(x => x.Questions).FirstOrDefault(x=>x.Id==id);
+            return db.Quizzes.Include(x => x.Questions).ThenInclude(f=>f.Answers).FirstOrDefault(x=>x.Id==id);
         }
         public List<Quiz> GetAll()
         {

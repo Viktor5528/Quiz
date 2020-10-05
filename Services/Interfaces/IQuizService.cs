@@ -13,6 +13,7 @@ namespace Services.Interfaces
         int Update(UpdateQuizRequestModel model);
 
         List<ShortInfoQuizResponse> GetAll();
+        ShortInfoQuizResponse GetById(int id);
         List<ShortInfoQuestionResponse> AddQuestionForQuiz(int questionId, int quizId);
     }
 }

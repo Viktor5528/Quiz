@@ -10,8 +10,8 @@ namespace Services.Profiles
     {
         public QuestionProfile()
         {
-            CreateMap<CreateQuestionRequestModel, Question>();
-            CreateMap<UpdateQuestionRequestModel, Question>();
+            CreateMap<CreateQuestionRequestModel, Question>().ReverseMap();
+            CreateMap<UpdateQuestionRequestModel, Question>().ReverseMap();
             CreateMap<ShortInfoQuestionResponse, Question>().ReverseMap();
             CreateMap<QuestionResponseModel, Question>().ReverseMap();
             CreateMap<ShortInfoQuestionResponse, CreateQuestionRequestModel>().ReverseMap();

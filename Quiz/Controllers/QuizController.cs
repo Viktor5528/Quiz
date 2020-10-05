@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.TagHelpers;
 using Services.Interfaces;
 using Services.Requests;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
@@ -28,10 +30,22 @@ namespace Quiz.Controllers
             return Ok(_quiz.AddQuestionForQuiz(questionId, quizId));
         }
         [HttpGet]
-        [Authorize(AuthenticationSchemes = "Bearer")]
+        //[Authorize(AuthenticationSchemes = "Bearer")]
         public IActionResult GetAll()
         {
             return Ok(_quiz.GetAll());
+        }
+        [HttpGet("getbyid")]
+        public IActionResult GetById(int id)
+        {
+            try{
+                return Ok(_quiz.GetById(id)); 
+            }
+            catch(Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+            
         }
         [HttpPut]
         public IActionResult Update(UpdateQuizRequestModel model)

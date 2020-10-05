@@ -44,10 +44,11 @@ namespace Services
               .Map<List<ShortInfoQuestionResponse>>(_quizRepo.AddQuestionForQuiz(questionId, quizId));
             }
             throw new Exception("Quiz and Question have different themes");
-
-
         }
-
+        public ShortInfoQuizResponse GetById(int id)
+        {
+            return _mapper.Map<ShortInfoQuizResponse>(_quizRepo.GetById(id));
+        }
 
 
         public Task<int> Delete(int id)
@@ -58,8 +59,8 @@ namespace Services
         {
             var quiz = _quizRepo.GetById(model.Id);
             quiz.Name = model.Name;
-            quiz.Questions = model.Questions;
-            return _quizRepo.Update(_mapper.Map<Quiz>(model));
+            quiz.Questions = _mapper.Map<List<Question>>(model.Questions);
+            return _quizRepo.Update(quiz);
         }
         public List<ShortInfoQuizResponse> GetAll()
         {

@@ -9,8 +9,8 @@ namespace Services.Profiles
     {
         public QuizProfile()
         {
-            CreateMap<CreateQuizRequestModel, Quiz>();
-            CreateMap<UpdateQuizRequestModel, Quiz>();
+            CreateMap<CreateQuizRequestModel, Quiz>().ReverseMap();
+            CreateMap<UpdateQuizRequestModel, Quiz>().ReverseMap();
             CreateMap<ShortInfoQuizResponse, Quiz>().ReverseMap();
         }
     }
